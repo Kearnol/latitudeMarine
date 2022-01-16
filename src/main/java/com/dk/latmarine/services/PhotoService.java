@@ -107,12 +107,6 @@ public class PhotoService {
 //	System.out.format("Uploading %s to S3 bucket %s...\n", file_path, bucket_name);
 
 
-//======================
-//Resize an Image
-//======================
-
-// fetch test
-
 
 
 
