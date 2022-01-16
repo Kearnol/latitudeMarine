@@ -108,7 +108,7 @@ public class PhotoService {
 
 
 //======================
-//Resize an Image
+//Resize an Img
 //======================	
 
 
