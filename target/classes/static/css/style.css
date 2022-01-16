@@ -1,0 +1,417 @@
+* {
+    vertical-align: baseline;
+	font-weight: inherit;
+	font-family: Arial, Helvetica, sans-serif;
+	font-style: inherit;
+	font-size: 10px;
+    font-family: 'Charm', cursive;
+    font-family: 'Marck Script', cursive;
+    font-family: 'Play', sans-serif;
+	border: 0 none;
+	outline: 0;
+	padding: 0;
+	margin: 0;
+}
+
+#page-container {
+	position: relative;
+	min-height: 100vh;
+	
+}
+
+#content-wrap {
+	padding-bottom: 15.5rem;
+}
+
+.container {
+    width: 80vw;
+    margin: auto;
+}
+.innerContainer{
+    width: 50vw;
+    margin: auto;
+}
+
+h1 { 
+    font-size: 3.2rem;
+}
+
+h2 { 
+    font-size: 2.8rem;
+    font-weight: 600;
+}
+
+h3 { 
+    font-size: 1.87rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+h4 { 
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+}
+
+h5 { 
+    font-size: 1.33rem;
+}
+
+p {
+	font-size: 1.6rem;
+}
+
+p label{
+    font-size: 1.07rem;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.italics{
+	font-style: italic;
+}
+
+a{
+    padding:0;
+    margin:0;
+}
+
+li{
+	font-size: 2.0rem;
+	list-style-type: none;
+}
+
+.white-text{
+	color: ghostwhite;
+}
+
+.btn {
+    border-radius: 3px;
+    border: 2px solid #255f8f;
+    color: #255f8f;
+    background-color: white;
+    padding: 12px 24px;
+    box-shadow: 2px 2px 5px black;
+    margin-top: 20px;
+    font-size: 1.8rem;
+
+    border-radius: 3px;
+    border: 2px solid white;
+    color: white;
+    background-color: #02233f;
+    padding: 12px 24px;
+    box-shadow: 2px 2px 5px black;
+    margin-top: 20px;
+    font-size: 1.8rem;
+}
+
+/* =========== */
+/* TOP NAV */
+/* =========== */
+
+.topnav{
+	min-height: fit-content;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 0 0; 	
+}
+
+.topnav li, .topnav a{
+    text-decoration: none;
+    font-size: 2rem;
+    color: #255f8f;
+    list-style-type: none;
+}
+
+.navRight .underlined{
+	text-decoration: underline solid #9bdcea 2px;	
+}
+
+.navLeft {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	bottom: 5px;	
+}
+
+.navRight {
+	width: 50%;
+}
+
+.navRight ul{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+    margin:0;
+	}
+	
+.nav_bottom-border{
+	border-bottom: solid 2px #9bdcea;
+}
+
+
+
+/* =========== */
+/* Search Filter
+/* =========== */
+	.search-filter{
+		margin: 2rem auto 1rem;
+	}
+	
+	.search-filter button{
+    border-radius: 3px;
+    border: 2px solid white;
+    color: white;
+    background-color: #02233f;
+    padding: 8px 18px;
+    box-shadow: 2px 2px 5px black;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+	
+
+/* =========== */
+/* HERO */
+/* =========== */
+
+.hero{
+	background-image: url("/imgs/top_down_boat3.jpeg");
+	background-position: 0, 55%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	width: 100vw;
+	height: 45rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centerFlex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heroButtons button {
+    border-radius: 3px;
+    border: 2px solid white;
+    color: white;
+    background-color: #02233f;
+    padding: 12px 24px;
+    box-shadow: 2px 2px 5px black;
+    margin-top: 20px;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.heroContent > h2, .heroContent > h4{
+    text-align: center;
+}
+
+.heroButtons{
+    padding: 3px 8px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 2rem;
+    width:60%;
+}
+
+.hero_text{
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: ghostwhite;
+	text-shadow: 2px 2px 3px black;
+	padding: .5rem;
+	text-align: center;
+}
+
+.hero-icon-img{
+	width: 3.5rem;
+	transform: ScaleX(-1);
+	margin-right: 1rem;
+}
+
+.phone-number{
+	margin-top: 2rem;
+}
+
+
+/* =========== */
+/* BODY 	   */
+/* =========== */
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.flex-start{
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.flex-between{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.flex-even {
+    display: flex;
+    align-items: start;
+    justify-content: space-evenly;
+}
+
+.flex-column-start{
+	display:flex;
+	flex-direction: column;
+	align-items: flex-start
+}
+
+.greyBG{
+    background-color: #d7f3f9c9;
+}
+.cape_coral_bg{
+    background-image: url("/imgs/cape_coral_aerial.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.fw-block {
+    padding: 2rem 0px
+}
+
+.serviceImg{
+    height: 150%;
+    width: 100%;
+    margin: 10px 0 10px 0;
+    border-radius: 3px;
+    box-shadow: 2px 2px 5px black;
+}
+
+.service{
+    width: 25%;
+}
+
+.serviceCol{
+    width: 25%;
+}
+
+.servDetails{
+    text-align: center;
+}
+
+.hw-block_image{
+    width: 45%;
+    height: 37.5rem;
+}
+
+#review{
+    width:100%;
+    height:37.5rem;
+    margin-top: 1.5rem;
+}
+
+.hw-block_content{
+	width: 45%;
+	height: 100%;
+}
+
+/* =========== */
+/* FOOTER */
+/* =========== */
+
+.footer{
+    position: absolute;
+    bottom: 0px;
+    height: 11.5rem;
+    width: 100%;
+    padding: 20px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgb(93, 191, 244);
+}
+
+.footer .centerFlex{
+    margin-right: 40px;
+}
+
+.footer p{
+    font-size: 1.5rem;
+    color:rgb(123, 123, 123);
+}
+
+.footer li{    
+    font-size: 1.5rem;
+    list-style-type: none;
+    color:rgb(123, 123, 123);
+}
+.footer a{
+    font-size: 1.5rem;
+    text-decoration: none;
+    color:rgb(123, 123, 123)
+}
+
+.footerContainer {
+    width: 40vw;
+    margin: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    padding: 0, 40%, 0, 40%;
+}
+
+.icon{
+	margin-right: 3px;
+}
+
+.details {
+	margin-bottom: 10px;
+}
+
+
+/* =========== */
+/* MARKET */
+/* =========== */
+.marketGrid{
+    display:flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-left: 3%;
+    margin-top:5px; 
+}
+
+.marketCard{
+    width:20%;
+    height: 300px;
+    padding:10px 10px;
+    margin-right: 2%;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.marketCard a{
+    font-size: 2rem;
+    color: #255f8f;
+ 	text-decoration: none;
+}
+
+.marketImg{
+    width: 100%;
+    height: 80%;
+    margin:auto;
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 7px black;
+}
+
+
