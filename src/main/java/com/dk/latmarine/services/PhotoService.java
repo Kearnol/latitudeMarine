@@ -108,10 +108,9 @@ public class PhotoService {
 
 
 //======================
-//Resize an Image
+//Resize an Image/update
 //======================
 
-// fetch test
 
 
 
