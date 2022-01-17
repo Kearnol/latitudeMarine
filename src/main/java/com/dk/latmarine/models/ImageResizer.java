@@ -4,8 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
- 
+
 import javax.imageio.ImageIO;
+
+import org.springframework.web.multipart.MultipartFile;
 public class ImageResizer {
     /**
      * Resizes an image to a absolute width and height (the image may not be
@@ -16,12 +18,21 @@ public class ImageResizer {
      * @param scaledHeight absolute height in pixels
      * @throws IOException
      */
-    public static void resize(String inputImagePath,
-            String outputImagePath, int scaledWidth, int scaledHeight)
+	public  static File multipartToFile(MultipartFile multipart, String fileName) throws IllegalStateException, IOException {
+	    File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+fileName);
+	    multipart.transferTo(convFile);
+	    return convFile;
+	}
+
+	
+	public static File resize(MultipartFile mpFile,
+            String fileName, int scaledWidth, int scaledHeight)
             throws IOException {
         // reads input image
-        File inputFile = new File(inputImagePath);
-        BufferedImage inputImage = ImageIO.read(inputFile);
+//        File inputFile = new File(inputImagePath);
+        File imgFile = multipartToFile(mpFile, fileName);
+        System.out.println("imgfile" + imgFile);
+		BufferedImage inputImage = ImageIO.read(imgFile);
  
         // creates output image
         BufferedImage outputImage = new BufferedImage(scaledWidth,
@@ -33,11 +44,13 @@ public class ImageResizer {
         g2d.dispose();
  
         // extracts extension of output file
-        String formatName = outputImagePath.substring(outputImagePath
-                .lastIndexOf(".") + 1);
- 
+//        String formatName = outputImagePath.substring(outputImagePath
+//                .lastIndexOf(".") + 1);
+// 
         // writes to output file
-        ImageIO.write(outputImage, formatName, new File(outputImagePath));
+        File file = File.createTempFile("temp", ".jpg");
+        ImageIO.write(outputImage, "png", file);
+        return file;
     }
  
 }

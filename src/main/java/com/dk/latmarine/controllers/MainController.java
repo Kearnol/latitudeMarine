@@ -63,8 +63,8 @@ public class MainController {
 	public String saveSellable(
 			RedirectAttributes flash,
 			@Valid @ModelAttribute("sellable") Sellable sellable,
-			@RequestParam("imageFiles") List<MultipartFile> imageFiles,
 			BindingResult result,			
+			@RequestParam("imageFiles") List<MultipartFile> imageFiles,
 			Model model
 			) {		
 		Iterable<Sellable> sellables = sellServ.getAllSellables();
@@ -74,7 +74,8 @@ public class MainController {
 			System.out.println("Errors occured");
 			endPoint = "addSellable.jsp";
 		} else {			
-			if(imageFiles != null && imageFiles.size() > 0) {
+			if(imageFiles != null && !imageFiles.get(0).isEmpty()) {
+				System.out.println("It came back true" + "....." + imageFiles.size() + "....." + imageFiles.get(0) + "....." + imageFiles);
 				for(MultipartFile mpfile: imageFiles) {
 					String fileName = photoServ.sanitzieFileName(mpfile.getOriginalFilename());
 					Photo photo = new Photo();
@@ -83,22 +84,25 @@ public class MainController {
 					//ATTEMPT TO SAVE EACH PHOTO IN AWS S3
 					
 					try {
-						// @param mpfile = multi-part file received from form input;
-						// @param photo = photo class
-						// @param flash = redirect attribute object
+						/* 
+						@param mpfile = multi-part file received from form input;
+						@param photo = photo class
+						@param flash = redirect attribute object 
+						*/
 						sellServ.saveImage(mpfile, photo, flash); 					
 					} catch (Exception e) {
 						e.printStackTrace();
 						System.out.println(e);
 						return "addSellable.jsp";
 					}
-					sellServ.saveSellable(sellable);
+					sellServ.saveSellable(sellable);					
 					photo.setSellable(sellable);
+					photoServ.save(photo);
 					flash.addFlashAttribute("success", "Images successfully uploaded");
-					endPoint = "redirect:/admin/market";
-				}
-				
+				}				
 			 }
+			flash.addFlashAttribute("success", "Item successfully added");
+			endPoint = "redirect:/admin/market";
 		}
 		return endPoint;
 	}

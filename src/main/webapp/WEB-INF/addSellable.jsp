@@ -42,8 +42,10 @@
 	        <div class="form-group">
 	            <label>Type</label>
 	            <form:select path="type" class="form-control">
+					<option value="" hidden="true">Select</option>
 	            	<option value="boat">boat</option>
 	            	<option value="motor">motor</option>
+	            	<option value="trailer">trailer</option>
 	            	<option value="part">part</option>	            	
             	</form:select>
 	            <form:errors path="type" class="text-danger" />
@@ -65,12 +67,12 @@
 	        </div>
 	        <div class="form-group">
 	            <label>Price</label>
-	            <form:input type="number" path="price" step="0.01" class="form-control" min="0" />
+	            <form:input type="number" path="price" step="0.01" class="form-control" min="0" value="0"/>
 	            <form:errors path="price" class="text-danger" />
 	        </div>
 	        <div class="form-group">
 	            <label>Description</label>
-	            <form:textarea path="description" class="form-control" />
+	            <form:textarea path="description" class="form-control" placeholder="..." />
 	            <form:errors path="description" class="text-danger" />
 	        </div>
 	        <div class="form-group">
@@ -80,7 +82,7 @@
 	        </div>
 	        <div class="form-group">
 	            <label>Quantity</label>
-	            <form:input type="number" path="quantity" class="form-control" min="0" />
+	            <form:input type="number" path="quantity" class="form-control" min="0" value="0" />
 	            <form:errors path="quantity" class="text-danger" />
 	        </div>
 	        <div class="form-group">
@@ -89,7 +91,7 @@
 	            <ul id="#output">
 	            </ul>	           
 	        </div>	        	        
-	        <input type="submit" value="Add Item" id="#addBtn" class="btn btn-primary" />
+	        <input type="submit" value="Add Item" id="addBtn" class="btn btn-primary" />
 	    </form:form>
 	   
 	  <%--  <form action="/addImage" enctype="multipart/form-data" method="post">
