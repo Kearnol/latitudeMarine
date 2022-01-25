@@ -79,28 +79,28 @@
 						</thead>
 						<tbody>		
 								<tr>
-									<td>Type:</td><td><c:out value="${sellable.type }"/></td>						
+									<td>Type:</td><td class="td_sellable_info"><c:out value="${sellable.type }"/></td>						
 								</tr>		
 								<tr>
-									<td>Year:</td><td><c:out value="${sellable.year }"/></td>
+									<td>Year:</td><td class="td_sellable_info"><c:out value="${sellable.year }"/></td>
 								</tr>
 								<tr>
-									<td>Make:</td><td><c:out value="${sellable.make }"/></td>
+									<td>Make:</td><td class="td_sellable_info"><c:out value="${sellable.make }"/></td>
 								</tr>
 								<tr>
-									<td>Model:</td><td><c:out value="${sellable.model }"/></td>
+									<td>Model:</td><td class="td_sellable_info"><c:out value="${sellable.model }"/></td>
 								</tr>
 								<tr>
-									<td>Price:</td><td><fmt:formatNumber type="currency" value="${sellable.price}"/></td>
+									<td>Price:</td><td class="td_sellable_info"><fmt:formatNumber type="currency" value="${sellable.price}"/></td>
 								</tr>
 								<tr>
-									<td>Description:</td><td><c:out value="${sellable.description }"/></td>
+									<td>Description:</td><td class="td_sellable_info"><c:out value="${sellable.description }"/></td>
 								</tr>
 								<tr>
-									<td>Condition:</td><td><c:out value="${sellable.state }"/></td>
+									<td>Condition:</td><td class="td_sellable_info"><c:out value="${sellable.state }"/></td>
 								</tr>
 								<tr>
-									<td>Qty:</td><td><c:out value="${sellable.quantity }"/></td>	
+									<td>Qty:</td><td class="td_sellable_info"><c:out value="${sellable.quantity }"/></td>	
 								</tr>																		
 						</tbody>
 					</table>

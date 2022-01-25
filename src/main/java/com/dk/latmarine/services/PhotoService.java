@@ -68,18 +68,18 @@ public class PhotoService {
 // ======================
 		
 	/*
-	 *  @ param photo - new instance of photo passed from controller
-	 *  @ param imageFile - MultipartFile passed from HTML form input<file>
-	 *  
 	 *  Calls ImageResizer.resize() to convert image to specified w x h. 
 	 *  
+	 *  @ param photo - new instance of photo passed from controller
+	 *  @ param imageFile - MultipartFile passed from HTML form input<file>
 	 *  @ returns boolean - saved to AWS s3? 
+	 *  
 	 */
 	
 	public boolean savePhotoS3(Photo photo, MultipartFile MPimgFile) throws Exception {			
 		String bucket_name = "latitudemarineimgs";
 		String fileName = photo.getFileName();
-		File resizedImg = ImageResizer.resize(MPimgFile, fileName, 300, 250);
+		File resizedImg = ImageResizer.resize(MPimgFile, fileName);
 		try {
 			s3.putObject(new PutObjectRequest(bucket_name, fileName, resizedImg).withCannedAcl(CannedAccessControlList.PublicRead));
 			return true;

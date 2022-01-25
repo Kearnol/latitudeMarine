@@ -36,15 +36,14 @@ public class Sellable {
 	@Size(min=1, message="Selection required")
 	private String type;
 	
-	@NotNull (message="value required or \"0000\"")
-	@Size(min=4, max=4, message="Not a valid year")
+	@Size(max=4, message="Errorrr")
 	private String year;
 	
-	@NotNull
+	
 	@Size(max = 255, message = "Make cannot exceed 255 characters")
 	private String make;
 	
-	@NotNull (message="value required")
+
 	@Size(max = 255, message = "Model must be less than 255 characters")
 	private String model;
 	
@@ -56,7 +55,6 @@ public class Sellable {
 	@Size(min= 3, message = "Description must be 3 or more characters - or \"No Description\"")
 	private String description;
 	
-	@NotNull
 	@Size(min= 3, message="Condition required or \"n/a\"")
 	//"Condition" - (reserved keyword)
 	private String state;

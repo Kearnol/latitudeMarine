@@ -21,12 +21,15 @@
 	 	} 
 	}	
 }
- 
+
+/*
 $("#file").on('change', ()=>{
 	console.log("this is running");
 	checkFileSize(file)
 });
+*/
 
+/* 
 $("#addBtn").click((event)=> {
 	let result = false;
 	console.log("clicked");	
@@ -38,6 +41,6 @@ $("#addBtn").click((event)=> {
 			event.preventDefault();
 		}
 	}
-});
+}); */
 
 
