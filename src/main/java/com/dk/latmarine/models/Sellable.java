@@ -29,37 +29,37 @@ public class Sellable {
 	private Long id;
 	
 	@NotNull
-	@Size(min= 1, max = 255)
+	@Size(min= 1, max = 255, message="Title required")
  	private String title;
 	
-	@NotNull
+	@NotNull (message="Selection required")
+	@Size(min=1, message="Selection required")
 	private String type;
 	
-	@NotNull
-	@Size(min=4, max=4, message="Not a valid year")
+	@Size(max=4, message="Errorrr")
 	private String year;
 	
-	@NotNull
-	@Size(max = 255, message = "Make is too long")
+	
+	@Size(max = 255, message = "Make cannot exceed 255 characters")
 	private String make;
 	
-	@NotNull
-	@Size(max = 255, message = "Model is too long")
+
+	@Size(max = 255, message = "Model must be less than 255 characters")
 	private String model;
 	
-	@NotNull
+	@NotNull (message="Price required")
 	@Min(value=0, message="Price may not be null or less than 0")
 	private Double price;
 	
 	@NotNull
-	@Size(min= 3)
+	@Size(min= 3, message = "Description must be 3 or more characters - or \"No Description\"")
 	private String description;
 	
-	@NotNull
-	@Size(min= 3)
+	@Size(min= 3, message="Condition required or \"n/a\"")
+	//"Condition" - (reserved keyword)
 	private String state;
 	
-	@NotNull
+	@NotNull (message="quantity required or \"0\"")
 	@Min(value= 0, message="Qauntity cannot be less than 0")
 	private Integer quantity;
 

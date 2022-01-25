@@ -1,5 +1,6 @@
 package com.dk.latmarine.services;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +41,7 @@ public class PhotoService {
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyhhmmss");
 		String df = sdf.format(date);
-		return name.replaceAll("[:\\\\/*?|<>]", "_") + df + ext;
+		return name.replaceAll("[:\\\\/*?|<>\s]", "_") + df + ext;
 	}
 	
 //	public void savePhotoImage(Photo photo, MultipartFile imageFile) throws Exception {
@@ -65,30 +66,29 @@ public class PhotoService {
 // ======================
 // Save Photo to AWS S3 Bucket
 // ======================
+		
+	/*
+	 *  Calls ImageResizer.resize() to convert image to specified w x h. 
+	 *  
+	 *  @ param photo - new instance of photo passed from controller
+	 *  @ param imageFile - MultipartFile passed from HTML form input<file>
+	 *  @ returns boolean - saved to AWS s3? 
+	 *  
+	 */
 	
-	// @param photo - photo class
-	// @param imageFile = multi-part file received from form input
-	
-	public boolean savePhotoS3(Photo photo, MultipartFile imageFile) throws Exception {			
+	public boolean savePhotoS3(Photo photo, MultipartFile MPimgFile) throws Exception {			
 		String bucket_name = "latitudemarineimgs";
 		String fileName = photo.getFileName();
-		
-		ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentType(imageFile.getContentType());
-        objectMetadata.setContentLength(imageFile.getSize());
-        
-        try {
-        	s3.putObject(new PutObjectRequest(bucket_name,
-                fileName,
-                imageFile.getInputStream(),
-                objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead));
-        	return true;
-        } catch (AmazonServiceException e) {
+		File resizedImg = ImageResizer.resize(MPimgFile, fileName);
+		try {
+			s3.putObject(new PutObjectRequest(bucket_name, fileName, resizedImg).withCannedAcl(CannedAccessControlList.PublicRead));
+			return true;
+		} catch (AmazonServiceException e) {
 			System.err.println(e.getErrorMessage());
 			return false;
 			//add Logger-J 
 		}     
-    }
+	}
 	
 // ======================
 // Retrieve Photos from AWS S3
@@ -97,21 +97,11 @@ public class PhotoService {
 		  String bucket_name = "latitudemarineimgs";  
 		  ListObjectsV2Result result = s3.listObjectsV2(bucket_name);
 	        List<S3ObjectSummary> objects = result.getObjectSummaries();
-
 	        return objects.stream()
 	                .map(S3ObjectSummary :: getKey).collect(Collectors.toList());
-	    }
-
-	
+	    }	
 }	
 //	System.out.format("Uploading %s to S3 bucket %s...\n", file_path, bucket_name);
-
-
-//======================
-//Resize an Image/update
-//======================
-
-
 
 
 

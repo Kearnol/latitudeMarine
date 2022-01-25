@@ -1,5 +1,6 @@
 package com.dk.latmarine.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,18 +16,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dk.latmarine.models.Photo;
 import com.dk.latmarine.models.Sellable;
-import com.dk.latmarine.services.AdminUserService;
+import com.dk.latmarine.models.User;
 import com.dk.latmarine.services.PhotoService;
 import com.dk.latmarine.services.SellableService;
+import com.dk.latmarine.services.UserService;
 
 @Controller
 public class MainController {
+	
 	@Autowired
 	SellableService sellServ;
 	
@@ -34,7 +38,7 @@ public class MainController {
 	PhotoService photoServ;
 	
 	@Autowired
-	AdminUserService adminUserServ;
+	UserService userService;
 	
 // ======================
 // Index
@@ -44,6 +48,44 @@ public class MainController {
 	public String index() {
 		return "index.jsp";
 	}
+
+// ======================
+// Login & Registration
+// ======================	
+	
+	@RequestMapping("/register")
+	public String registerForm(@ModelAttribute("user") User user) {
+		return "register.jsp";
+	}
+	
+	@PostMapping("/register")
+	public String registration(
+			@Valid 
+			@ModelAttribute("user") User user, 
+			BindingResult result, Model model, 
+			HttpSession session) {
+        if (result.hasErrors()) {
+            return "register.jsp";
+        }
+        userService.saveWithUserRole(user);
+        return "redirect:/login";
+	}
+	
+	@RequestMapping("/login")
+	public String login(
+			@RequestParam(value="error", required=false) String error,
+			@RequestParam(value="logout", required=false) String logout, 
+			Model model) {
+		
+		if(error !=null) {
+			model.addAttribute("errorMessage", "Invalid Credentials");
+		}
+		if(logout != null) {
+			model.addAttribute("logoutMessage", "Logout Successful!");
+		}
+		return "login.jsp";
+	}
+	
 	
 // ======================
 // Add Sell-able | Render & Processing
@@ -53,9 +95,11 @@ public class MainController {
 	public String addToMarket(
 			@ModelAttribute("sellable") Sellable sellable,
 			Model model,
-			HttpSession session) {
+			Principal principal) {
 		Iterable<Sellable> sellables = sellServ.getAllSellables();
 		model.addAttribute("sellables", sellables);
+		String username = principal.getName();
+		model.addAttribute("currentUser", userService.findByUsername(username));
 		return "addSellable.jsp";
 	}
 	
@@ -63,8 +107,8 @@ public class MainController {
 	public String saveSellable(
 			RedirectAttributes flash,
 			@Valid @ModelAttribute("sellable") Sellable sellable,
-			@RequestParam("imageFiles") List<MultipartFile> imageFiles,
 			BindingResult result,			
+			@RequestParam("imageFiles") List<MultipartFile> imageFiles,
 			Model model
 			) {		
 		Iterable<Sellable> sellables = sellServ.getAllSellables();
@@ -74,7 +118,8 @@ public class MainController {
 			System.out.println("Errors occured");
 			endPoint = "addSellable.jsp";
 		} else {			
-			if(imageFiles != null && imageFiles.size() > 0) {
+			if(imageFiles != null && !imageFiles.get(0).isEmpty()) {
+				System.out.println("PhotoService 122 - image files input not empty: " + imageFiles.get(0).getName() );
 				for(MultipartFile mpfile: imageFiles) {
 					String fileName = photoServ.sanitzieFileName(mpfile.getOriginalFilename());
 					Photo photo = new Photo();
@@ -83,22 +128,25 @@ public class MainController {
 					//ATTEMPT TO SAVE EACH PHOTO IN AWS S3
 					
 					try {
-						// @param mpfile = multi-part file received from form input;
-						// @param photo = photo class
-						// @param flash = redirect attribute object
+						/* 
+						@param mpfile = multi-part file received from form input;
+						@param photo = photo class
+						@param flash = redirect attribute object 
+						*/
 						sellServ.saveImage(mpfile, photo, flash); 					
 					} catch (Exception e) {
 						e.printStackTrace();
 						System.out.println(e);
 						return "addSellable.jsp";
 					}
-					sellServ.saveSellable(sellable);
+					sellServ.saveSellable(sellable);					
 					photo.setSellable(sellable);
+					photoServ.save(photo);
 					flash.addFlashAttribute("success", "Images successfully uploaded");
-					endPoint = "redirect:/admin/market";
-				}
-				
+				}				
 			 }
+			flash.addFlashAttribute("success", "Item successfully added");
+			endPoint = "redirect:/admin/market";
 		}
 		return endPoint;
 	}
@@ -164,7 +212,6 @@ public class MainController {
 // Update Sell-able | Render & Processing
 // ======================	
 	
-	
 	@GetMapping("/admin/edit/{id}")
 	public String editSellable(
 			@ModelAttribute("sellable") Sellable sellable,
@@ -195,6 +242,7 @@ public class MainController {
 // ======================
 // Show Item
 // ======================
+	
 	@GetMapping("/market/{id}")
 	public String viewSellable(
 			@PathVariable("id") Long id,
@@ -203,7 +251,6 @@ public class MainController {
 		model.addAttribute("sellable", sellable);
 		return "viewSellable.jsp";
 	}
-	
 	
 // ======================
 // Delete

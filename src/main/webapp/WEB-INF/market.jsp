@@ -62,7 +62,7 @@
 			<div class="container marketGrid">
 				<c:forEach var="sellable" items="${sellables}">
 				<div class="marketCard">
-	                <a href="market/${sellable.id}">         
+	                <a href="/market/${sellable.id}">         
 	                        <img class="marketImg" src="https://latitudemarineimgs.s3.us-east-2.amazonaws.com/${sellable.photos[0].fileName}" alt="image" />
 	                    <h3><c:out value="${sellable.title}"/></h3>
 	                    <p>Price: <fmt:formatNumber type="currency" value="${sellable.price}"/></p>

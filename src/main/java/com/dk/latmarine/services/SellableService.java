@@ -42,13 +42,18 @@ public class SellableService {
 	
 	public void saveImage(MultipartFile imageFile, Photo photo, RedirectAttributes flash)
 	throws Exception {
-		if(photoServ.savePhotoS3(photo, imageFile)){
-			photoServ.save(photo);
-		} else {
-			flash.addFlashAttribute("img", "Problems uploading images");
-			throw new Exception();
-			// flash & tell client;
-		}			
+		try {
+			if(photoServ.savePhotoS3(photo, imageFile)){
+				System.out.println("S3 save successful, saving photo in Java");
+			} else {
+				flash.addFlashAttribute("img", "Problems uploading images");
+				throw new Exception();
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public Iterable<Sellable> getAllBoats() {

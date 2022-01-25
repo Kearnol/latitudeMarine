@@ -25,6 +25,16 @@ const moveToSlide = (track, currentSlide, targetSlide) => {
     targetSlide.classList.add("current-slide");
 }
 
+function checkSlideCount (nextButton){
+	if (slides.length < 2){
+		nextButton.classList.add("is-hidden");
+	}
+}
+
+
+$(document).ready(checkSlideCount);
+	
+
 const hideShowArrows = (slides, prevButton, nextButton, targetIndex) => {
     if(targetIndex === 0) {
         prevButton.classList.add("is-hidden");
